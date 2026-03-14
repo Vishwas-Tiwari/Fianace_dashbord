@@ -7,7 +7,9 @@ A comprehensive full-stack personal finance management application with advanced
 - **3D Glassmorphism UI** - Modern, interactive dashboard with perspective transforms
 - **Real-time Analytics** - Live charts and financial insights using Chart.js
 - **Comprehensive API** - RESTful Flask backend with 8+ endpoints
-- **MySQL Database** - Robust schema with 500+ sample transactions
+- **SQLite Database** - Lightweight, file-based database with 202 sample transactions
+- **Production Ready** - Deployment configurations for Railway, Render, Heroku, Vercel
+- **Docker Support** - Containerized deployment with health checks
 - **Budget Management** - Set and track category budgets
 - **Savings Goals** - Monitor progress towards financial targets
 - **Power BI Integration** - Advanced analytics and reporting
@@ -37,7 +39,8 @@ finance-dashboard/
 ## 🛠️ Tech Stack
 
 - **Backend**: Python Flask with REST API
-- **Database**: MySQL with complex relationships
+- **Database**: SQLite (production-ready, file-based)
+- **Deployment**: Gunicorn WSGI server, Docker, multiple cloud platforms
 - **Frontend**: Vanilla HTML/CSS/JavaScript
 - **Charts**: Chart.js for interactive visualizations
 - **Styling**: Advanced CSS with 3D transforms and glassmorphism
@@ -46,8 +49,8 @@ finance-dashboard/
 ## 📋 Prerequisites
 
 - Python 3.8+
-- MySQL 8.0+
-- Node.js (for Chart.js, served via CDN)
+- SQLite (built-in with Python)
+- Git (for version control)
 - Power BI Desktop (optional, for analytics)
 
 ## 🚀 Quick Start
@@ -74,26 +77,16 @@ pip install -r requirements.txt
 # Login to MySQL
 mysql -u root -p
 
-# Create and populate database
-source database/schema.sql
-source database/seed_data.sql
+### 3. Setup Database
 
-# Exit MySQL
-exit
+```bash
+# Run the database setup script
+python setup_db.py
 ```
 
-### 4. Configure Database Connection
+This will create `finance_dashboard.db` with sample data.
 
-Edit `config.py` with your MySQL credentials:
-
-```python
-MYSQL_HOST = 'localhost'
-MYSQL_USER = 'your_username'
-MYSQL_PASSWORD = 'your_password'
-MYSQL_DATABASE = 'finance_dashboard'
-```
-
-### 5. Run the Application
+### 4. Run the Application
 
 ```bash
 python app.py
@@ -191,7 +184,45 @@ Navigate to: `http://localhost:5000`
 3. **Styling**: Add CSS rules in `style.css`
 4. **Logic**: Implement JavaScript in `main.js`
 
-## 🐛 Troubleshooting
+## � Deployment
+
+The application is production-ready and can be deployed to multiple cloud platforms.
+
+### Quick Deploy Options
+
+#### Railway (Recommended - Free)
+```bash
+# 1. Connect GitHub repository to Railway
+# 2. Railway auto-detects Python app
+# 3. App deploys automatically
+```
+
+#### Render (Free tier)
+```bash
+# 1. Connect GitHub repository
+# 2. Set build command: pip install -r requirements.txt
+# 3. Set start command: gunicorn --bind 0.0.0.0:$PORT wsgi:app
+```
+
+#### Docker
+```bash
+# Build and run
+docker build -t finance-dashboard .
+docker run -p 8000:8000 finance-dashboard
+```
+
+### Supported Platforms
+- ✅ Railway
+- ✅ Render
+- ✅ Heroku
+- ✅ Vercel
+- ✅ Docker
+- ✅ Google Cloud Run
+- ✅ AWS Fargate
+
+📖 **Detailed deployment guide**: See [`DEPLOYMENT.md`](DEPLOYMENT.md) for comprehensive instructions.
+
+## �🐛 Troubleshooting
 
 ### Common Issues
 
@@ -201,9 +232,9 @@ Navigate to: `http://localhost:5000`
 - Check database connection settings
 
 **Database Connection Failed**
-- Ensure MySQL is running
-- Verify credentials in `config.py`
-- Check user permissions
+- SQLite database is automatically created
+- Check file permissions on `finance_dashboard.db`
+- Run `python setup_db.py` to recreate database
 
 **Charts Not Loading**
 - Verify Chart.js CDN connection

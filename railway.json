@@ -1,0 +1,5 @@
+# Railway Deployment Configuration
+# This file tells Railway how to deploy your Flask app
+
+# The app will automatically detect this as a Python app
+# and use the requirements.txt and wsgi.py files

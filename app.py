@@ -377,4 +377,11 @@ def set_budget():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    # Get port from environment variable (for cloud deployment)
+    import os
+    port = int(os.environ.get('PORT', 8000))
+
+    # Only enable debug mode in development
+    debug = os.environ.get('FLASK_ENV') == 'development'
+
+    app.run(debug=debug, host='0.0.0.0', port=port)
